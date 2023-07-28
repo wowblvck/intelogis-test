@@ -30,6 +30,11 @@
       "@layouts/*": ["src/layouts/*"],
       "@routes/*": ["src/routes/*"],
       "@pages/*": ["src/pages/*"],
+      "@store/*": ["src/store/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@sagas/*": ["src/sagas/*"],
+      "@api/*": ["src/api/*"],
       "@/*": ["src/*"]
     }
   },
