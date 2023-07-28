@@ -1,3 +1,4 @@
+import Map from '@components/Map';
 import RoutesList from '@components/RoutesList';
 import { clearCurrentRoute, fetchRoutesStart, setCurrentRoute } from '@reducers/routes.reducer';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
@@ -38,11 +39,15 @@ const Routes: React.FC = () => {
     }
   }, [id, data, dispatch]);
   return (
-    <Row gutter={16}>
-      <Col span={currentRoute ? 12 : 24}>
+    <Row gutter={16} style={{ height: '100%' }}>
+      <Col span={currentRoute ? 6 : 24}>
         <RoutesList loading={loading} source={data!} />
       </Col>
-      {currentRoute && <Col span={12}>Map</Col>}
+      {currentRoute && (
+        <Col span={18}>
+          <Map route={currentRoute} />
+        </Col>
+      )}
     </Row>
   );
 };
