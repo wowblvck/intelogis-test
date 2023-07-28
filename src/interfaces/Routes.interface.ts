@@ -1,5 +1,5 @@
 interface Point {
-  location: number[];
+  location: [number, number];
   name: string;
 }
 
