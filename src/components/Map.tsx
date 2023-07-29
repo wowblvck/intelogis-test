@@ -1,6 +1,6 @@
 import type { RoutesList } from '@interfaces/Routes.interface';
 
-import calculateCenter from '@/utils/map';
+import { calculateCenter } from '@utils/helperFunctions';
 import { Map as LeafletMap } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
