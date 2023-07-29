@@ -1,6 +1,6 @@
 import type { RoutesList } from '@interfaces/Routes.interface';
 
-import { getRoutesFromAPI } from '@api/api';
+import { getRoutesFromAPI } from '@api/routes.api';
 import { fetchRoutesFailure, fetchRoutesStart, fetchRoutesSuccess } from '@reducers/routes.reducer';
 import { AxiosError, AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';

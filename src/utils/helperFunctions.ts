@@ -14,4 +14,4 @@ const calculateCenter = <T extends { location: [number, number] }>(
   return [center[0] / numPoints, center[1] / numPoints];
 };
 
-export default calculateCenter;
+export { calculateCenter };
