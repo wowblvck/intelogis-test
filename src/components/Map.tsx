@@ -1,10 +1,19 @@
 import type { RoutesList } from '@interfaces/Routes.interface';
 
 import { calculateCenter } from '@utils/helperFunctions';
-import { Map as LeafletMap } from 'leaflet';
+import L, { Map as LeafletMap } from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+
+const DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 type MapProps = {
   route: RoutesList;
@@ -39,7 +48,7 @@ export const Map: React.FC<MapProps> = ({ route }) => {
         center={center}
         ref={mapRef}
         scrollWheelZoom={true}
-        style={{ height: '100%' }}
+        style={{ height: '100%', width: '100%' }}
         zoom={11}
       >
         <TileLayer

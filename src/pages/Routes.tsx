@@ -1,10 +1,11 @@
-import Map from '@components/Map';
 import RoutesList from '@components/RoutesList';
 import { clearCurrentRoute, fetchRoutesStart, setCurrentRoute } from '@reducers/routes.reducer';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { Col, Row, notification } from 'antd';
-import { useEffect } from 'react';
+import { Col, Row, Spin, notification } from 'antd';
+import { Suspense, lazy, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+const Map = lazy(() => import('@components/Map'));
 
 const Routes: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -44,8 +45,10 @@ const Routes: React.FC = () => {
         <RoutesList loading={loading} source={data!} />
       </Col>
       {currentRoute && (
-        <Col span={18}>
-          <Map route={currentRoute} />
+        <Col span={18} style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+          <Suspense fallback={<Spin />}>
+            <Map route={currentRoute} />
+          </Suspense>
         </Col>
       )}
     </Row>
