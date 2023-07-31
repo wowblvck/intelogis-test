@@ -33,7 +33,8 @@ const expandedRowRender = (record: RoutesList) => {
               {locations.join(', ')}
             </Paragraph>
           ),
-          title: 'Координаты (широта, долгота)',
+          responsive: ['lg', 'sm', 'xl', 'xxl'],
+          title: 'Координаты',
         },
       ]}
       dataSource={record.points}
