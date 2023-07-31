@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
       <Space
         align="center"
         direction={xs ? 'vertical' : 'horizontal'}
-        style={{ justifyContent: 'space-between', width: '100%' }}
+        style={{ justifyContent: 'space-between', textAlign: 'center', width: '100%' }}
       >
         <Typography.Text type="secondary">2023</Typography.Text>
         <Link href="https://wowblvck.tech/" target="_blank">
