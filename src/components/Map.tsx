@@ -2,6 +2,7 @@ import type { RoutesList } from '@interfaces/Routes.interface';
 
 import { useAppSelector } from '@store/hooks';
 import { calculateCenter } from '@utils/helperFunctions';
+import { Grid } from 'antd';
 import L, { LatLng, LatLngExpression, Map as LeafletMap } from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -9,6 +10,8 @@ import 'leaflet/dist/leaflet.css';
 import 'polyline-encoded';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
+
+const { useBreakpoint } = Grid;
 
 //IMPORTANCE: To recognize polyline-encoded types in TypeScript
 const Lx = L as unknown as Lx.L;
@@ -43,6 +46,7 @@ type MapProps = {
 };
 
 export const Map: React.FC<MapProps> = ({ route }) => {
+  const { xs } = useBreakpoint();
   const mapRef = useRef<LeafletMap>(null);
   const [center, setCenter] = useState<[number, number]>([0, 0]);
   const { geometry } = useAppSelector((state) => state.routeReducer);
@@ -69,7 +73,7 @@ export const Map: React.FC<MapProps> = ({ route }) => {
         ref={mapRef}
         scrollWheelZoom={true}
         style={{ height: '100%', width: '100%' }}
-        zoom={11}
+        zoom={xs ? 10 : 11}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -91,7 +95,9 @@ export const Map: React.FC<MapProps> = ({ route }) => {
 
   return (
     <>
-      {mapRef.current ? <DisplayPosition center={center} map={mapRef.current} zoom={11} /> : null}
+      {mapRef.current ? (
+        <DisplayPosition center={center} map={mapRef.current} zoom={xs ? 10 : 11} />
+      ) : null}
       {displayMap}
     </>
   );

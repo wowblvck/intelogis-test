@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 const RootLayout: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const handleCollapsed = () => {
     setCollapsed(!collapsed);
