@@ -1,6 +1,6 @@
 import RoutesList from '@components/RoutesList';
-import { clearCurrentRoute, fetchCurrentRoute } from '@reducers/route.reducer';
-import { fetchRoutesStart } from '@reducers/routes.reducer';
+import { clearRouteState, fetchCurrentRoute } from '@reducers/route.reducer';
+import { clearRoutesState, fetchRoutesStart } from '@reducers/routes.reducer';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { Col, Grid, Row, Spin, notification } from 'antd';
 import { Suspense, lazy, useEffect } from 'react';
@@ -32,9 +32,10 @@ const Routes: React.FC = () => {
   useEffect(() => {
     dispatch(fetchRoutesStart());
     return () => {
-      dispatch(clearCurrentRoute());
+      dispatch(clearRouteState());
+      dispatch(clearRoutesState());
     };
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (id && data) {
@@ -44,6 +45,7 @@ const Routes: React.FC = () => {
       }
     }
   }, [id, data]);
+
   return (
     <Row align="top" gutter={16} style={{ height: '100%', overflow: 'hidden' }}>
       <Col span={currentRoute && xl ? 6 : 24}>

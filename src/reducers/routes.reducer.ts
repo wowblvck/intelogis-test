@@ -20,6 +20,11 @@ export const routesSlice = createSlice({
   initialState,
   name: 'routes',
   reducers: {
+    clearRoutesState: (state) => {
+      state.data = null;
+      state.loading = false;
+      state.error = null;
+    },
     fetchRoutesFailure: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.loading = false;
@@ -36,6 +41,7 @@ export const routesSlice = createSlice({
   },
 });
 
-export const { fetchRoutesFailure, fetchRoutesStart, fetchRoutesSuccess } = routesSlice.actions;
+export const { clearRoutesState, fetchRoutesFailure, fetchRoutesStart, fetchRoutesSuccess } =
+  routesSlice.actions;
 
 export default routesSlice.reducer;

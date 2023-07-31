@@ -20,9 +20,11 @@ export const routeSlice = createSlice({
   initialState,
   name: 'route',
   reducers: {
-    clearCurrentRoute: (state) => {
+    clearRouteState: (state) => {
       state.currentRoute = null;
       state.geometry = null;
+      state.loading = false;
+      state.error = null;
     },
     fetchCurrentRoute: (state, action: PayloadAction<RoutesList>) => {
       state.currentRoute = action.payload;
@@ -45,7 +47,7 @@ export const routeSlice = createSlice({
 });
 
 export const {
-  clearCurrentRoute,
+  clearRouteState,
   fetchCurrentRoute,
   fetchCurrentRouteError,
   fetchCurrentRouteSuccess,
