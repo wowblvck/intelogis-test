@@ -1,7 +1,7 @@
-<h1 align="center">Тестовое задание</h1>
-<p>
+<h1 align="center">Тестовое задание</h1
 
-</p>
+[![Build and Deploy Production](https://github.com/wowblvck/intelogis-test/actions/workflows/production.yml/badge.svg)](https://github.com/wowblvck/intelogis-test/actions/workflows/production.yml)
+[![Build and Deploy Development](https://github.com/wowblvck/intelogis-test/actions/workflows/development.yml/badge.svg)](https://github.com/wowblvck/intelogis-test/actions/workflows/development.yml)
 
 > Используя современные инструменты для разработки интерфейсов реализовать страницу с отображением списка маршрутов (у каждого маршрута n-ое количество точек) и карту, на которой располагаются точки маршрута. С помощью запроса к Project OSRM получить геометрию полилиний и отрисовать её на карте.
 
@@ -80,7 +80,7 @@ VITE_API=[LINK TO API]
 
 ---
 
-## ✨ [Превью](https://test-sector-business.netlify.app)
+## ✨ [Превью](https://test-intelogis.netlify.app/)
 
 ## Автор
 
