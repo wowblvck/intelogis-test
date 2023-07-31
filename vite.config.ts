@@ -34,6 +34,7 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
       '@api': resolve(__dirname, './src/api'),
       '@components': resolve(__dirname, './src/components'),
+      '@constants': resolve(__dirname, './src/constants'),
       '@interfaces': resolve(__dirname, './src/interfaces'),
       '@layouts': resolve(__dirname, './src/layouts'),
       '@pages': resolve(__dirname, './src/pages'),

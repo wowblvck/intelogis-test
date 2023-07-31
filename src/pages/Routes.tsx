@@ -1,5 +1,6 @@
 import RoutesList from '@components/RoutesList';
-import { clearCurrentRoute, fetchRoutesStart, setCurrentRoute } from '@reducers/routes.reducer';
+import { clearCurrentRoute, fetchCurrentRoute } from '@reducers/route.reducer';
+import { fetchRoutesStart } from '@reducers/routes.reducer';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { Col, Row, Spin, notification } from 'antd';
 import { Suspense, lazy, useEffect } from 'react';
@@ -9,20 +10,21 @@ const Map = lazy(() => import('@components/Map'));
 
 const Routes: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { currentRoute, data, error, loading } = useAppSelector((state) => state.routesReducer);
+  const { data, error, loading } = useAppSelector((state) => state.routesReducer);
+  const { currentRoute, error: routeError } = useAppSelector((state) => state.routeReducer);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (error) {
+    if (error || routeError) {
       notification.error({
-        description: error,
+        description: error || routeError,
         duration: 3,
         message: 'Ошибка',
         placement: 'top',
         type: 'error',
       });
     }
-  }, [error]);
+  }, [error, routeError]);
 
   useEffect(() => {
     dispatch(fetchRoutesStart());
@@ -33,12 +35,12 @@ const Routes: React.FC = () => {
 
   useEffect(() => {
     if (id && data) {
-      const currentRoute = data.find((route) => route.id === Number(id));
+      const currentRoute = data.find((route) => Number(route.id) === Number(id));
       if (currentRoute) {
-        dispatch(setCurrentRoute(currentRoute));
+        dispatch(fetchCurrentRoute(currentRoute));
       }
     }
-  }, [id, data, dispatch]);
+  }, [id, data]);
   return (
     <Row gutter={16} style={{ height: '100%' }}>
       <Col span={currentRoute ? 6 : 24}>

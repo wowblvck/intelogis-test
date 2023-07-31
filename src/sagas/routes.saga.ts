@@ -17,6 +17,6 @@ function* fetchRoutes() {
   }
 }
 
-export function* watchFetchRoutes() {
-  yield takeLatest(fetchRoutesStart, fetchRoutes);
+export function* watchRoutes() {
+  yield takeLatest(fetchRoutesStart.type, fetchRoutes);
 }

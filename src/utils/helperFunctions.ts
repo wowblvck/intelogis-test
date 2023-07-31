@@ -14,4 +14,9 @@ const calculateCenter = <T extends { location: [number, number] }>(
   return [center[0] / numPoints, center[1] / numPoints];
 };
 
-export { calculateCenter };
+const convertPointsToString = <T extends { location: [number, number] }>(points: T[]) => {
+  const locationsString = points.map((point) => point.location.slice().reverse().join()).join(';');
+  return locationsString;
+};
+
+export { calculateCenter, convertPointsToString };
