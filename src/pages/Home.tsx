@@ -12,7 +12,7 @@ type stackData = {
 const stackData: stackData[] = [
   {
     link: 'https://reactjs.org/',
-    name: 'React JS',
+    name: 'ReactJS',
   },
   {
     link: 'https://redux-toolkit.js.org/',
