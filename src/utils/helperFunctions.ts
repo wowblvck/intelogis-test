@@ -1,3 +1,5 @@
+import { Location, Params } from 'react-router-dom';
+
 const calculateCenter = <T extends { location: [number, number] }>(
   points: T[]
 ): [number, number] => {
@@ -19,4 +21,12 @@ const convertPointsToString = <T extends { location: [number, number] }>(points:
   return locationsString;
 };
 
-export { calculateCenter, convertPointsToString };
+const getDefaultPath = (location: Location, params: Params) => {
+  const defaultKey = Object.values(params).reduce(
+    (path, param) => (path ? path.replace('/' + param, '') : ''),
+    location.pathname
+  );
+  return defaultKey;
+};
+
+export { calculateCenter, convertPointsToString, getDefaultPath };

@@ -1,5 +1,6 @@
 import { CarOutlined, HomeOutlined } from '@ant-design/icons/lib/icons';
 import { AppRoutes } from '@routes/appRoutes';
+import { getDefaultPath } from '@utils/helperFunctions';
 import Menu from 'antd/es/menu';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -8,10 +9,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const params = useParams<Record<string, string>>();
 
-  const defaultKey = Object.values(params).reduce(
-    (path, param) => path!.replace('/' + param, ''),
-    location.pathname
-  );
+  const defaultPath = getDefaultPath(location, params);
 
   return (
     <Menu
@@ -29,7 +27,7 @@ const Navigation = () => {
           onClick: () => navigate(AppRoutes.Routes),
         },
       ]}
-      defaultSelectedKeys={[defaultKey!]}
+      defaultSelectedKeys={[defaultPath!]}
       mode="inline"
       theme="dark"
     />
