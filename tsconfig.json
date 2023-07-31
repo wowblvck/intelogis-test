@@ -36,6 +36,7 @@
       "@sagas/*": ["src/sagas/*"],
       "@api/*": ["src/api/*"],
       "@utils/*": ["src/utils/*"],
+      "@constants/*": ["src/constants/*"],
       "@/*": ["src/*"]
     }
   },

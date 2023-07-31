@@ -1,10 +1,12 @@
 interface Point {
+  id: string;
   location: [number, number];
   name: string;
+  routeId: string;
 }
 
 interface RoutesList {
-  id: number;
+  id: string;
   name: string;
   points: Point[];
 }
