@@ -1,6 +1,6 @@
 import type { RoutesList } from '@interfaces/Routes.interface';
 
-import { setCurrentRoute } from '@reducers/routes.reducer';
+import { setCurrentRoute } from '@reducers/route.reducer';
 import { AppRoutes } from '@routes/appRoutes';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import Empty from 'antd/es/empty';
@@ -46,7 +46,7 @@ const expandedRowRender = (record: RoutesList) => {
 
 const RoutesList: React.FC<RoutesListProps> = ({ loading, source }) => {
   const navigate = useNavigate();
-  const currentRoute = useAppSelector((state) => state.routesReducer.currentRoute);
+  const currentRoute = useAppSelector((state) => state.routeReducer.currentRoute);
   const dispatch = useAppDispatch();
 
   return (

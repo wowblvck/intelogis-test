@@ -1,24 +1,28 @@
 import type { RoutesList } from '@interfaces/Routes.interface';
 
+import { useAppSelector } from '@store/hooks';
 import { calculateCenter } from '@utils/helperFunctions';
-import L, { Map as LeafletMap } from 'leaflet';
+import L, { LatLng, LatLngExpression, Map as LeafletMap } from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
+import 'polyline-encoded';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
 
+//IMPORTANCE: To recognize polyline-encoded types in TypeScript
+const Lx = L as unknown as Lx.L;
+
+//CRITICAL: To display standard marker icons after build
 const DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
+//
 
-type MapProps = {
-  route: RoutesList;
-};
-
+//CRITICAL: To be able to center the map after changing the route
 type DisplayPositionProps = {
   center: [number, number];
   map: LeafletMap;
@@ -32,10 +36,26 @@ const DisplayPosition: React.FC<DisplayPositionProps> = ({ center, map, zoom }) 
 
   return null;
 };
+//
+
+type MapProps = {
+  route: RoutesList;
+};
 
 export const Map: React.FC<MapProps> = ({ route }) => {
   const mapRef = useRef<LeafletMap>(null);
   const [center, setCenter] = useState<[number, number]>([0, 0]);
+  const { geometry } = useAppSelector((state) => state.routeReducer);
+  const [decodedGeometry, setDecodedGeometry] = useState<
+    LatLngExpression[] | LatLngExpression[][] | null
+  >(null);
+
+  useEffect(() => {
+    if (geometry) {
+      const decodedGeometry = Lx.Polyline.fromEncoded(geometry);
+      setDecodedGeometry(decodedGeometry.getLatLngs() as LatLng[] | LatLng[][]);
+    }
+  }, [geometry]);
 
   useEffect(() => {
     const center = calculateCenter(route.points);
@@ -55,6 +75,8 @@ export const Map: React.FC<MapProps> = ({ route }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {decodedGeometry && <Polyline positions={decodedGeometry} />}
+
         {route.points.map((point, idx) => {
           return (
             <Marker key={`${idx}_${point.name}`} position={point.location}>
@@ -64,7 +86,7 @@ export const Map: React.FC<MapProps> = ({ route }) => {
         })}
       </MapContainer>
     ),
-    []
+    [route.points, decodedGeometry]
   );
 
   return (
