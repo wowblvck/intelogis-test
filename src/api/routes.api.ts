@@ -11,7 +11,7 @@ const getRoutesFromAPI = () =>
 
 const getGeometryFromAPI = (points: string) =>
   axios.get<RoutesOSRM>(
-    `http://router.project-osrm.org/route/v1/driving/${points}?geometries=polyline&overview=simplified`
+    `https://router.project-osrm.org/route/v1/driving/${points}?geometries=polyline&overview=simplified`
   );
 
 export { getGeometryFromAPI, getRoutesFromAPI };
